@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cauê Gabriel · Sites que colocam seu negócio em órbita</title>
+  <meta name="description" content="Cauê Gabriel, dev front-end e designer em São José dos Campos. Landing pages, cardápios digitais e sites com 3D e animação, do Figma até o ar.">
+  <meta name="theme-color" content="#d4d5da">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Cauê Gabriel · Sites que colocam seu negócio em órbita">
+  <meta property="og:description" content="Landing pages, cardápios digitais e sites com 3D e animação, do Figma até o ar.">
+  <meta property="og:url" content="https://gabrielcaue83.github.io/">
+  <meta property="og:image" content="https://gabrielcaue83.github.io/img/astronauta-640.png">
+  <link rel="canonical" href="https://gabrielcaue83.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" as="image" href="/img/astronauta-896.webp" imagesrcset="/img/astronauta-560.webp 560w, /img/astronauta-896.webp 896w" imagesizes="(max-width: 700px) 90vw, 46vw" fetchpriority="high">
+
+  <!-- Marca o HTML antes de pintar: sem JS, nada fica escondido esperando animação -->
+  <script>
+    document.documentElement.classList.add('js');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('rm');
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Carregamento -->
+  <div class="loader" aria-hidden="true">
+    <p class="loader__label">Preparando a órbita</p>
+    <p class="loader__count"><span class="loader__num">0</span><span class="loader__pct">%</span></p>
+    <span class="loader__bar"><i></i></span>
+  </div>
+
+  <!-- Uma única tela WebGL fixa desenha o astronauta e as imagens por cima do layout -->
+  <canvas class="gl" aria-hidden="true"></canvas>
+  <!-- a estrela em que Serviços se transforma e de onde nasce a demo de GSAP -->
+  <div class="estrela" aria-hidden="true"></div>
+  <!-- clarão da supernova que leva do processo ao contato -->
+  <div class="clarao" aria-hidden="true"></div>
+  <div class="hud" aria-hidden="true">
+    <span class="hud__n" data-hud-n>01</span>
+    <span class="hud__name" data-hud-name>Serviços</span>
+    <i class="hud__bar"><b data-hud-bar></b></i>
+  </div>
+
+  <header class="nav" data-nav>
+    <nav class="nav__links" aria-label="Seções">
+      <a href="#topo">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#animacao">Animação</a>
+      <a href="#tres">3D</a>
+    </nav>
+    <a class="nav__brand" href="#topo" aria-label="Cauê Gabriel, voltar ao início">
+      <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <path d="M106 60A46 46 0 1 1 75.73 16.77" stroke="currentColor" stroke-width="12"/>
+        <circle cx="97.68" cy="33.62" r="9" fill="currentColor"/>
+        <path d="M38 60A22 22 0 1 1 52.48 80.67" stroke="currentColor" stroke-width="12"/>
+      </svg>
+      <span>Cauê Gabriel</span>
+    </a>
+    <div class="nav__actions">
+      <a class="pill" href="#contato" data-magnetic>
+        <span class="pill__ico" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></span>
+        <span class="pill__txt">Pedir orçamento</span>
+      </a>
+      <a class="pill pill--desk" href="https://www.instagram.com/caue_gabriiel/" target="_blank" rel="noopener" data-magnetic>
+        <span class="pill__ico" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>
+        <span class="pill__txt">Instagram</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="topo" aria-labelledby="hero-titulo">
+      <div class="hero__word-wrap" aria-hidden="true">
+        <p class="hero__word">ÓRBITA</p>
+      </div>
+
+      <div class="hero__veil" aria-hidden="true"></div>
+
+      <div class="hero__figure">
+        <img class="hero__img" data-gl="hero"
+             src="/img/astronauta-896.webp"
+             srcset="/img/astronauta-560.webp 560w, /img/astronauta-896.webp 896w"
+             sizes="(max-width: 700px) 90vw, 46vw"
+             width="896" height="1200" fetchpriority="high"
+             alt="Figura de perfil com capacete branco brilhante e viseira escura, em preto e branco.">
+      </div>
+
+      <div class="hero__grid">
+        <p class="hero__kicker" data-split>Além do template. Além do esperado.</p>
+        <p class="hero__aside" data-split>Landing pages, cardápios digitais e sites com 3D e animação. Do Figma até o ar, feitos em São José dos Campos.</p>
+        <h1 class="hero__title" id="hero-titulo">
+          <span class="hero__line">Sites que colocam</span>
+          <span class="hero__line">seu negócio</span>
+          <span class="hero__line hero__line--dim">em órbita.</span>
+        </h1>
+        <a class="reel" href="#no-ar" data-reel aria-label="Ver os projetos no ar">
+          <span class="reel__frame">
+            <img src="/img/projeto-opus-640.webp" alt="" width="640" height="400" loading="eager" data-reel-img>
+            <img src="/img/projeto-iacit-640.webp" alt="" width="640" height="400" loading="lazy" data-reel-img>
+            <img src="/img/projeto-casarao-640.webp" alt="" width="640" height="400" loading="lazy" data-reel-img>
+            <img src="/img/projeto-classe-640.webp" alt="" width="640" height="400" loading="lazy" data-reel-img>
+            <span class="reel__name" data-reel-name>Opus 5.5</span>
+          </span>
+          <span class="reel__bar"><span data-reel-n>01</span><i><b data-reel-progress></b></i><span>04</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ 01 · SERVIÇOS (cena fixa: as imagens se transformam no scroll) ============ -->
+    <section class="cena servicos" id="servicos" aria-labelledby="t-servicos" data-hud="01|Serviços">
+      <div class="cena__pin">
+        <header class="cena__head wrap">
+          <h2 class="cena__label" id="t-servicos"><span class="sec__n">01 /</span> Serviços</h2>
+          <p class="cena__count" aria-hidden="true"><span data-svc-n>01</span> / 03</p>
+        </header>
+        <div class="svc wrap">
+          <div class="svc__texts">
+            <article class="svc__item" data-svc>
+              <p class="svc__num" aria-hidden="true">01</p>
+              <h3 class="svc__title">Landing<br>pages</h3>
+              <p class="svc__text">Uma página feita para vender: mensagem clara, carregamento rápido e o botão de contato sempre à mão.</p>
+              <ul class="svc__list"><li>Texto e design no Figma</li><li>WhatsApp e formulário</li><li>SEO e velocidade</li></ul>
+            </article>
+            <article class="svc__item" data-svc>
+              <p class="svc__num" aria-hidden="true">02</p>
+              <h3 class="svc__title">Sites 3D e<br>imersivos</h3>
+              <p class="svc__text">Animação e cenas em WebGL que transformam a visita em experiência, como esta página que você está vendo.</p>
+              <ul class="svc__list"><li>GSAP e Three.js</li><li>Leve no celular</li><li>Feito sob medida</li></ul>
+            </article>
+            <article class="svc__item" data-svc>
+              <p class="svc__num" aria-hidden="true">03</p>
+              <h3 class="svc__title">Cardápios<br>digitais</h3>
+              <p class="svc__text">Cardápio online com busca, filtros e foto de cada prato, pronto para o QR Code da mesa.</p>
+              <ul class="svc__list"><li>QR Code na mesa</li><li>Fotos e categorias</li><li>Busca e filtros</li></ul>
+            </article>
+          </div>
+          <div class="svc__media">
+            <div class="svc__frame" data-svc-frame>
+              <img data-slide src="/img/servico-android-1376.webp" srcset="/img/servico-android-720.webp 720w, /img/servico-android-1376.webp 1376w" sizes="(max-width: 900px) 92vw, 50vw" width="1376" height="768" loading="lazy"
+                   alt="Busto de androide com rosto de porcelana e pescoço mecânico, em preto e branco.">
+              <img data-slide src="/img/servico-cerebro-1376.webp" srcset="/img/servico-cerebro-720.webp 720w, /img/servico-cerebro-1376.webp 1376w" sizes="(max-width: 900px) 92vw, 50vw" width="1376" height="768" loading="lazy"
+                   alt="Cérebro de metal prateado ligado por filamentos de luz, em preto e branco.">
+              <img data-slide src="/img/servico-robo-1376.webp" srcset="/img/servico-robo-720.webp 720w, /img/servico-robo-1376.webp 1376w" sizes="(max-width: 900px) 92vw, 50vw" width="1376" height="768" loading="lazy"
+                   alt="Robô branco de frente com dois olhos acesos na viseira preta.">
+            </div>
+          </div>
+        </div>
+        <div class="cena__progress wrap" aria-hidden="true">
+          <span data-svc-tab>Landing pages</span>
+          <span data-svc-tab>Sites 3D</span>
+          <span data-svc-tab>Cardápios</span>
+          <i class="cena__bar"><b data-svc-bar></b></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · GSAP (cena fixa com 3 atos + playground de easing) ============ -->
+    <section class="cena demo-gsap" id="animacao" aria-labelledby="t-gsap" data-hud="02|GSAP">
+      <div class="cena__pin">
+        <header class="cena__head wrap">
+          <h2 class="cena__label" id="t-gsap"><span class="sec__n">02 /</span> Animação · GSAP</h2>
+          <p class="cena__count" aria-hidden="true"><span data-gsap-n>01</span> / 03</p>
+        </header>
+        <div class="demo wrap">
+          <div class="demo__copy">
+            <p class="demo__lead">GSAP é uma biblioteca de animação para a web. Com ela, o scroll vira o controle do tempo. Role e veja.</p>
+            <ol class="demo__steps">
+              <li class="demo__step" data-gsap-step>
+                <h3><span class="sec__n">01</span> Sequência</h3>
+                <p>Vários elementos entram em ordem, como numa coreografia.</p>
+                <code>gsap.from('.forma', { y: 120, stagger: 0.08 })</code>
+              </li>
+              <li class="demo__step" data-gsap-step>
+                <h3><span class="sec__n">02</span> Scroll no controle</h3>
+                <p>A animação avança e volta junto com o seu scroll.</p>
+                <code>scrollTrigger: { scrub: true }</code>
+              </li>
+              <li class="demo__step" data-gsap-step>
+                <h3><span class="sec__n">03</span> Caminhos</h3>
+                <p>Um objeto percorre uma rota desenhada, como um satélite em órbita.</p>
+                <code>motionPath: { path: '#orbita' }</code>
+              </li>
+            </ol>
+          </div>
+          <div class="stage" aria-hidden="true">
+            <div class="stage__formas">
+              <span class="forma forma--circ"></span><span class="forma forma--quad"></span><span class="forma forma--pill"></span><span class="forma forma--tri"></span><span class="forma forma--anel"></span><span class="forma forma--quad forma--ghost"></span><span class="forma forma--circ forma--ghost"></span>
+            </div>
+            <p class="stage__palavra">MOVIMENTO</p>
+            <svg class="stage__orbita" viewBox="0 0 600 360">
+              <path class="stage__guia" d="M 60 180 A 240 110 0 1 1 540 180 A 240 110 0 1 1 60 180"/>
+              <path id="gsap-orbita" class="stage__linha" d="M 60 180 A 240 110 0 1 1 540 180 A 240 110 0 1 1 60 180"/>
+              <circle class="stage__planeta" cx="300" cy="180" r="56"/>
+              <g class="stage__satelite"><circle class="stage__halo" r="20"/><circle r="8"/></g>
+            </svg>
+            <div class="stage__timeline">
+              <span>timeline</span>
+              <i><b data-gsap-head></b><em></em><em></em><em></em></i>
+              <span class="stage__time" data-gsap-time>0.00s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · THREE.JS (planeta 3D montado no scroll) ============ -->
+    <section class="cena demo-3d" id="tres" aria-labelledby="t-3d" data-hud="03|Three.js">
+      <div class="cena__pin">
+        <div class="tres__view" data-planet role="img" aria-label="Cena 3D de um planeta com anel e um satélite em órbita. Arraste para girar."></div>
+        <header class="cena__head wrap">
+          <h2 class="cena__label" id="t-3d"><span class="sec__n">03 /</span> 3D · Three.js</h2>
+          <p class="cena__count" aria-hidden="true"><span data-tres-n>01</span> / 04</p>
+        </header>
+        <div class="tres wrap">
+          <div class="demo__copy">
+            <p class="demo__lead">Isto não é um vídeo. É uma cena 3D calculada agora, no seu aparelho. Role para ver como ela é montada.</p>
+            <ol class="demo__steps">
+              <li class="demo__step" data-tres-step><h3><span class="sec__n">01</span> Geometria</h3><p>Toda forma 3D começa como uma malha de triângulos.</p></li>
+              <li class="demo__step" data-tres-step><h3><span class="sec__n">02</span> Material e luz</h3><p>Textura e iluminação dão volume e acabamento.</p></li>
+              <li class="demo__step" data-tres-step><h3><span class="sec__n">03</span> Partículas</h3><p>Milhares de pontos se movem juntos e formam o anel.</p></li>
+              <li class="demo__step" data-tres-step><h3><span class="sec__n">04</span> Interação</h3><p>Arraste a cena: o site responde a você.</p></li>
+            </ol>
+          </div>
+        </div>
+        <dl class="tres__stats" aria-hidden="true">
+          <div><dt>Triângulos</dt><dd data-stat="tris">0</dd></div>
+          <div><dt>Partículas</dt><dd data-stat="pts">0</dd></div>
+          <div><dt>Quadros/s</dt><dd data-stat="fps">--</dd></div>
+        </dl>
+        <p class="tres__hint" aria-hidden="true"><span>←</span> Arraste para girar <span>→</span></p>
+        <p class="tres__fallback">A cena 3D precisa de WebGL e de animação ligada no seu aparelho.</p>
+      </div>
+    </section>
+
+    <!-- ============ 04 · MOTION (micro-interações) ============ -->
+    <section class="sec demo-motion" id="motion" aria-labelledby="t-motion" data-hud="04|Motion">
+      <div class="wrap">
+        <div class="motion__head">
+          <h2 class="sec__title" id="t-motion" data-split><span class="sec__n">04 /</span> Micro-interações</h2>
+          <p class="demo__lead">São as pequenas respostas da interface. Elas deixam o site mais gostoso de usar e mais fácil de entender. Aqui, feitas com a biblioteca Motion. Experimente:</p>
+        </div>
+        <div class="bento">
+          <article class="tile" data-tile>
+            <div class="tile__stage tile__stage--drag" data-drag-area>
+              <span class="orb__ghost" aria-hidden="true"></span>
+              <button type="button" class="orb" data-orb aria-label="Bola de exemplo: arraste e solte">
+                <span class="orb__core" aria-hidden="true"></span>
+              </button>
+            </div>
+            <h3 class="tile__title"><span class="sec__n">A</span> Arraste e solte</h3>
+            <p class="tile__text">Física de mola: a bola volta sozinha para o lugar.</p>
+          </article>
+          <article class="tile" data-tile>
+            <div class="tile__stage tile__stage--tilt" data-tilt>
+              <div class="tiltcard" data-tilt-card>
+                <span class="tiltcard__glare" aria-hidden="true"></span>
+                <p class="tiltcard__top"><span>Cartão 3D</span><span>2026</span></p>
+                <p class="tiltcard__big">ÓRBITA</p>
+                <p class="tiltcard__foot">Cauê Gabriel · dev</p>
+              </div>
+            </div>
+            <h3 class="tile__title"><span class="sec__n">B</span> Passe o mouse</h3>
+            <p class="tile__text">Profundidade que acompanha o seu movimento.</p>
+          </article>
+          <article class="tile" data-tile>
+            <div class="tile__stage tile__stage--switch">
+              <div class="menu-demo">
+                <div class="switch" role="group" aria-label="Escolha o cardápio de exemplo">
+                  <span class="switch__thumb" aria-hidden="true"></span>
+                  <button type="button" class="switch__opt" data-menu="almoco" aria-pressed="true">Almoço</button>
+                  <button type="button" class="switch__opt" data-menu="jantar" aria-pressed="false">Jantar</button>
+                </div>
+                <ul class="menu-demo__list" data-menu-list aria-live="polite">
+                  <li><span>Prato do dia</span><b>R$ 32</b></li>
+                  <li><span>Feijoada da casa</span><b>R$ 45</b></li>
+                  <li><span>Salada da horta</span><b>R$ 28</b></li>
+                </ul>
+              </div>
+            </div>
+            <h3 class="tile__title"><span class="sec__n">C</span> Toque para alternar</h3>
+            <p class="tile__text">Trocas suaves, sem recarregar a página. (Cardápio de exemplo.)</p>
+          </article>
+          <article class="tile" data-tile>
+            <div class="tile__stage tile__stage--cta" data-mag-area>
+              <a class="mag" href="#contato" data-mag>
+                <span class="mag__txt">Pedir orçamento</span>
+                <span class="mag__ico" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></span>
+              </a>
+            </div>
+            <h3 class="tile__title"><span class="sec__n">D</span> Chegue perto</h3>
+            <p class="tile__text">Botões que puxam o cursor e respondem ao clique.</p>
+          </article>
+          <article class="tile tile--wide" data-tile>
+            <div class="tile__stage tile__stage--ease">
+              <div class="ease">
+                <div class="ease__buttons" role="group" aria-label="Curva de tempo">
+                  <button type="button" data-ease="none" aria-pressed="false">Linear</button>
+                  <button type="button" data-ease="power3.out" aria-pressed="true">Suave</button>
+                  <button type="button" data-ease="back.out(2.2)" aria-pressed="false">Recuo</button>
+                  <button type="button" data-ease="elastic.out(1, 0.32)" aria-pressed="false">Elástico</button>
+                  <button type="button" data-ease="bounce.out" aria-pressed="false">Quique</button>
+                </div>
+                <div class="ease__view">
+                  <svg class="ease__graph" viewBox="0 0 120 120" aria-hidden="true">
+                    <path class="ease__axis" d="M 10 100 H 110 M 10 100 V 10"/>
+                    <path class="ease__curve" d=""/>
+                    <circle class="ease__dot" r="3" cx="10" cy="100"/>
+                  </svg>
+                  <div class="ease__track" aria-hidden="true"><span class="ease__ball"></span></div>
+                </div>
+                <p class="ease__code"><code>gsap.to('.bola', { x: 400, ease: '<span data-ease-name>power3.out</span>' })</code></p>
+              </div>
+            </div>
+            <h3 class="tile__title"><span class="sec__n">E</span> Escolha o movimento</h3>
+            <p class="tile__text">A mesma animação muda de personalidade só trocando a curva de tempo, o easing. Esta é feita com GSAP.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · PROCESSO (um satélite percorre a rota) ============ -->
+    <section class="cena processo" id="processo" aria-labelledby="t-processo" data-hud="05|Processo">
+      <div class="cena__pin">
+        <div class="wrap processo__inner">
+          <div class="processo__head">
+            <h2 class="sec__title" id="t-processo" data-split><span class="sec__n">05 /</span> Processo</h2>
+            <blockquote class="processo__quote">
+              <p>Do rabisco no Figma ao site no ar.</p>
+              <footer>— Cauê Gabriel</footer>
+            </blockquote>
+          </div>
+          <div class="rota">
+            <svg class="rota__svg" viewBox="0 0 1200 200" aria-hidden="true">
+              <path class="rota__guia" d="M 20 160 C 240 10, 420 10, 600 100 S 960 190, 1180 40"/>
+              <path class="rota__linha" id="rota-path" d="M 20 160 C 240 10, 420 10, 600 100 S 960 190, 1180 40"/>
+              <g class="rota__stops"></g>
+              <g class="rota__sat"><circle class="rota__halo" r="16"/><circle r="5"/></g>
+            </svg>
+            <ol class="passos">
+              <li class="passo" data-passo><h3><span class="sec__n">01 /</span> Briefing</h3><p>Uma conversa para entender o negócio, o público e o que o site precisa resolver.</p></li>
+              <li class="passo" data-passo><h3><span class="sec__n">02 /</span> Design</h3><p>Layout no Figma, já com a versão de celular, para você aprovar antes do código.</p></li>
+              <li class="passo" data-passo><h3><span class="sec__n">03 /</span> Código</h3><p>Desenvolvimento com animação, 3D quando faz sentido e cuidado com a velocidade.</p></li>
+              <li class="passo" data-passo><h3><span class="sec__n">04 /</span> No ar</h3><p>Publicação, domínio e ajustes finais. Seu negócio em órbita.</p></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 · CONTATO ============ -->
+    <section class="sec contato" id="contato" aria-labelledby="t-contato" data-hud="06|Contato">
+      <div class="wrap contato__inner">
+        <div class="contato__left">
+          <h2 class="sec__title" id="t-contato" data-split><span class="sec__n">06 /</span> Contato</h2>
+          <p class="contato__big" data-split>Vamos construir o próximo.</p>
+          <a class="contato__handle" href="https://www.instagram.com/caue_gabriiel/" target="_blank" rel="noopener">@caue_gabriiel</a>
+
+          <form class="form" data-form novalidate>
+            <div class="field">
+              <label for="f-nome">Nome</label>
+              <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <div class="field">
+              <label for="f-contato">E-mail ou WhatsApp</label>
+              <input id="f-contato" name="contato" type="text" autocomplete="email" required>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <div class="field field--area">
+              <label for="f-msg">Mensagem</label>
+              <textarea id="f-msg" name="mensagem" rows="3" placeholder="Conte o que você precisa: tipo de site, prazo, referências…" required></textarea>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <div class="form__foot">
+              <button class="pill pill--solid" type="submit" data-magnetic>
+                <span class="pill__txt">Enviar pedido</span>
+                <span class="pill__ico" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></span>
+              </button>
+              <p class="form__status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+
+          <div class="no-ar" id="no-ar">
+            <p class="no-ar__label">Projetos no ar</p>
+            <ul class="no-ar__list">
+              <li><a href="https://gabrielcaue83.github.io/OPUS-5.5/" target="_blank" rel="noopener">Opus 5.5 <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://gabrielcaue83.github.io/iacit-2.0/" target="_blank" rel="noopener">IACIT 2.0 <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://gabrielcaue83.github.io/casarao-mineiro/" target="_blank" rel="noopener">Casarão Mineiro <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://gabrielcaue83.github.io/classe-studio/classe-studio-landing/" target="_blank" rel="noopener">Classe Studio <span aria-hidden="true">↗</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="contato__media">
+          <img data-gl data-gl-fade src="/img/notebook-1200.webp" srcset="/img/notebook-720.webp 720w, /img/notebook-1200.webp 1200w" sizes="(max-width: 900px) 92vw, 40vw" width="1200" height="896" loading="lazy"
+               alt="Notebook escuro aberto mostrando um painel de site minimalista.">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="wrap rodape__inner">
+      <p>Cauê Gabriel © 2026 · Todos os direitos reservados</p>
+      <nav class="rodape__links" aria-label="Redes">
+        <a href="https://www.instagram.com/caue_gabriiel/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://github.com/gabrielcaue83" target="_blank" rel="noopener">GitHub</a>
+        <a href="#topo">Voltar ao topo</a>
+      </nav>
+      <p class="rodape__geo">23°10′S · 45°53′O · SJC <time data-clock>--:--</time></p>
+    </div>
+  </footer>
+</body>
+</html>

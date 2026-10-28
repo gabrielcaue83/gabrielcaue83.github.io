@@ -2,7 +2,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { W } from './sections/space.js';
+import { W, offsetIn } from './sections/space.js';
 
 // centro da viseira dentro da imagem do astronauta (0–1, y de cima para baixo),
 // medido no recorte: o vidro vai de 17% a 65% na horizontal e de 36% a 60% na vertical
@@ -19,10 +19,13 @@ export function setupHero(stage, { isTouch }) {
   const navParts = document.querySelectorAll('.nav__links, .nav__brand, .nav__actions');
 
   const gl = stage ? stage.add(img, { kind: 'hero' }) : null;
+  // com WebGL, a figura é desenhada no canvas, que fica por cima do hero preso;
+  // o título sobe para uma camada acima do canvas para continuar na frente dela
+  const title = gl ? liftTitle(hero) : hero.querySelector('.hero__title');
 
   // ---------- Entrada (montada pausada; os estados iniciais ficam escondidos sob o loader)
   const chars = SplitText.create(word, { type: 'chars' });
-  const lines = SplitText.create(hero.querySelectorAll('.hero__line, .hero__kicker, .hero__aside'), {
+  const lines = SplitText.create([...hero.querySelectorAll('.hero__kicker, .hero__aside'), ...title.querySelectorAll('.hero__line')], {
     type: 'lines',
     mask: 'lines',
   });
@@ -46,7 +49,6 @@ export function setupHero(stage, { isTouch }) {
   // ---------- Scroll: o hero fica fixo e a câmera mergulha na viseira.
   // O vidro escuro vira uma janela para o espaço, a janela cobre a tela
   // e Serviços nasce lá dentro (ela começa por cima do fim desta cena).
-  const title = hero.querySelector('.hero__title');
   const small = hero.querySelectorAll('.hero__kicker, .hero__aside');
   const veil = hero.querySelector('.hero__veil');
   gsap.set(img, { transformOrigin: `${VISOR.x * 100}% ${VISOR.y * 100}%` });
@@ -111,4 +113,34 @@ export function setupHero(stage, { isTouch }) {
   }
 
   return { intro, ready: gl ? gl.loaded : Promise.resolve() };
+}
+
+/* O hero fica preso (position: fixed) durante o mergulho e vira uma camada
+   própria, que o canvas WebGL cobre inteira. O título vai para uma camada fixa
+   acima do canvas, alinhada a uma cópia invisível que segura o lugar dele na grade. */
+function liftTitle(hero) {
+  const title = hero.querySelector('.hero__title');
+  const ghost = title.cloneNode(true);
+  ghost.removeAttribute('id');
+  ghost.setAttribute('aria-hidden', 'true');
+  ghost.classList.add('hero__title--ghost');
+  title.before(ghost);
+
+  const front = document.createElement('div');
+  front.className = 'hero__front';
+  front.append(title);
+  hero.before(front);
+
+  // o hero está preso no topo enquanto o título aparece, então a posição
+  // dentro do hero é a posição na tela
+  const place = () => {
+    const o = offsetIn(ghost, hero);
+    title.style.left = `${o.x}px`;
+    title.style.top = `${o.y}px`;
+    title.style.width = `${ghost.offsetWidth}px`;
+  };
+  place();
+  new ResizeObserver(place).observe(ghost);
+  ScrollTrigger.addEventListener('refresh', place);
+  return title;
 }

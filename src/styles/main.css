@@ -235,6 +235,10 @@ html.js:not(.rm) .loader {
   text-transform: uppercase;
   color: var(--ink);
 }
+/* camada do título acima do canvas WebGL (ver liftTitle em hero.js) */
+.hero__front { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+.hero__front .hero__title { position: absolute; }
+.hero__title--ghost { visibility: hidden; }
 .hero__line { display: block; }
 .hero__line--dim { color: #9c9da3; }
 
@@ -832,7 +836,15 @@ html:not(.is-webgl) .tres__stats, html.rm .tres__stats { display: none; }
   }
   .hero__kicker { display: none; }
   .hero__aside { justify-self: start; align-self: start; color: var(--muted); max-width: 40ch; }
-  .hero__figure { left: 62%; }
+  /* tablet: a figura sobe para o título cair sobre a jaqueta escura, e não
+     sobre o queixo claro do capacete (que termina a 74% da altura da imagem) */
+  .hero__figure {
+    left: 62%;
+    top: calc(var(--nav-h) - 40px); bottom: auto;
+    height: min(86%, calc((100% - 300px) * 1.35));
+  }
+  /* o título passa sobre a jaqueta: uma sombra suave segura os reflexos do couro */
+  .hero__title { text-shadow: 0 0 18px rgba(12, 12, 14, 0.7), 0 1px 3px rgba(12, 12, 14, 0.45); }
 
   /* serviços: imagem em cima, texto embaixo */
   .svc { grid-template-columns: 1fr; gap: clamp(16px, 3svh, 28px); }
